@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>כפות מוגנות | ביטוח וטרינרי לחיות מחמד</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Rubik', 'Arial', 'sans-serif'] },
+          colors: {
+            brand: {
+              50:  '#f0fdf4', 100: '#dcfce7', 200: '#bbf7d0',
+              300: '#86efac', 400: '#4ade80', 500: '#22c55e',
+              600: '#16a34a', 700: '#15803d', 800: '#166534', 900: '#14532d',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Rubik', Arial, sans-serif; }
+    .plan-card { transition: transform 0.2s, box-shadow 0.2s; }
+    .plan-card:hover { transform: translateY(-4px); }
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease; }
+    .faq-answer.open { max-height: 300px; padding-bottom: 1.25rem; }
+    .faq-icon { transition: transform 0.3s; }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+    .benefit-card { transition: transform 0.2s, box-shadow 0.2s; }
+    .benefit-card:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
+  </style>
+</head>
+<body class="text-slate-800 bg-white">
+
+<!-- ===== NAVBAR ===== -->
+<nav class="fixed top-0 right-0 left-0 z-50 bg-white/90 backdrop-blur-md shadow-sm">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <a href="#" class="flex items-center gap-2 text-brand-700 font-bold text-xl">
+        <span class="text-2xl">🐾</span>
+        <span>כפות מוגנות</span>
+      </a>
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#benefits" class="text-slate-600 hover:text-brand-600 font-medium text-sm transition-colors">יתרונות</a>
+        <a href="#plans"    class="text-slate-600 hover:text-brand-600 font-medium text-sm transition-colors">תוכניות</a>
+        <a href="#faq"      class="text-slate-600 hover:text-brand-600 font-medium text-sm transition-colors">שאלות ותשובות</a>
+        <a href="#contact"  class="text-slate-600 hover:text-brand-600 font-medium text-sm transition-colors">צור קשר</a>
+      </div>
+      <a href="#contact" class="hidden md:block bg-brand-600 hover:bg-brand-700 text-white font-semibold px-5 py-2 rounded-full text-sm transition-colors shadow">
+        קבל הצעת מחיר
+      </a>
+      <button id="menu-btn" class="md:hidden p-2 text-slate-600 hover:text-brand-600" aria-label="תפריט">
+        <svg id="icon-open"  class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <svg id="icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div id="mobile-menu" class="hidden md:hidden border-t border-slate-100 py-4 space-y-3">
+      <a href="#benefits" class="block text-slate-600 hover:text-brand-600 font-medium py-1">יתרונות</a>
+      <a href="#plans"    class="block text-slate-600 hover:text-brand-600 font-medium py-1">תוכניות</a>
+      <a href="#faq"      class="block text-slate-600 hover:text-brand-600 font-medium py-1">שאלות ותשובות</a>
+      <a href="#contact"  class="block text-slate-600 hover:text-brand-600 font-medium py-1">צור קשר</a>
+      <a href="#contact"  class="block bg-brand-600 text-white font-semibold px-5 py-2 rounded-full text-sm text-center mt-2">קבל הצעת מחיר</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="relative min-h-screen flex items-center bg-gradient-to-br from-brand-50 via-white to-emerald-50 pt-16 overflow-hidden">
+  <div class="absolute inset-0 pointer-events-none">
+    <div class="absolute top-20 left-10 w-72 h-72 bg-brand-200/30 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-20 right-10 w-96 h-96 bg-emerald-200/20 rounded-full blur-3xl"></div>
+  </div>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10">
+    <div class="grid lg:grid-cols-2 gap-12 items-center">
+      <div class="text-center lg:text-right">
+        <div class="inline-flex items-center gap-2 bg-brand-100 text-brand-700 px-4 py-1.5 rounded-full text-sm font-semibold mb-6">
+          <span>✅</span><span>מעל 50,000 חיות מחמד מבוטחות</span>
+        </div>
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 leading-tight mb-6">
+          הגנה מקיפה<br/>
+          <span class="text-brand-600">לחיית המחמד</span><br/>שלך
+        </h1>
+        <p class="text-lg text-slate-600 mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+          ביטוח וטרינרי מקיף הכולל כיסוי לטיפולים רפואיים, ניתוחים, תרופות ואשפוז.
+          תנו לנו לדאוג לבריאות הפרוותי שלכם — אתם תדאגו לאהבה.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+          <a href="#contact" class="bg-brand-600 hover:bg-brand-700 text-white font-bold px-8 py-4 rounded-full text-lg shadow-lg transition-all hover:-translate-y-0.5 text-center">
+            קבל הצעת מחיר חינם
+          </a>
+          <a href="#plans" class="border-2 border-brand-600 text-brand-700 hover:bg-brand-50 font-bold px-8 py-4 rounded-full text-lg transition-colors text-center">
+            לתוכניות הביטוח
+          </a>
+        </div>
+        <div class="mt-12 flex flex-wrap gap-6 justify-center lg:justify-start text-sm text-slate-500">
+          <div class="flex items-center gap-2"><span class="text-lg">🛡️</span><span>כיסוי מלא לחירום</span></div>
+          <div class="flex items-center gap-2"><span class="text-lg">💊</span><span>כיסוי תרופות מרשם</span></div>
+          <div class="flex items-center gap-2"><span class="text-lg">🏥</span><span>500+ בתי חולים שותפים</span></div>
+        </div>
+      </div>
+      <div class="flex justify-center lg:justify-end">
+        <div class="relative">
+          <div class="bg-white rounded-3xl shadow-2xl p-8 w-80 border border-brand-100">
+            <div class="text-center mb-6">
+              <div class="text-8xl mb-1">🐶</div>
+              <div class="text-8xl -mt-4">🐱</div>
+            </div>
+            <div class="space-y-3">
+              <div class="flex items-center justify-between bg-brand-50 rounded-xl p-3">
+                <span class="font-semibold text-brand-700 text-sm">ניתוח חירום</span>
+                <span class="text-slate-400 text-xs line-through">₪8,500</span>
+              </div>
+              <div class="flex items-center justify-between bg-brand-50 rounded-xl p-3">
+                <span class="font-semibold text-brand-700 text-sm">אשפוז 3 לילות</span>
+                <span class="text-slate-400 text-xs line-through">₪3,200</span>
+              </div>
+              <div class="flex items-center justify-between bg-brand-50 rounded-xl p-3">
+                <span class="font-semibold text-brand-700 text-sm">טיפולי כימותרפיה</span>
+                <span class="text-slate-400 text-xs line-through">₪15,000</span>
+              </div>
+            </div>
+            <div class="mt-6 bg-brand-600 text-white rounded-xl p-4 text-center">
+              <p class="text-xs mb-1 opacity-80">אתם משלמים רק</p>
+              <p class="text-3xl font-extrabold">₪0</p>
+              <p class="text-xs mt-1 opacity-80">הביטוח מכסה הכל</p>
+            </div>
+          </div>
+          <div class="absolute -top-4 -right-4 bg-yellow-400 text-yellow-900 rounded-2xl px-4 py-2 shadow-lg font-bold text-sm rotate-3">
+            💰 חסכו עד ₪26,700
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="absolute bottom-0 left-0 right-0">
+    <svg viewBox="0 0 1440 80" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full">
+      <path d="M0 80L60 68C120 56 240 32 360 26.7C480 21.3 600 37.3 720 42.7C840 48 960 42.7 1080 37.3C1200 32 1320 26.7 1380 24L1440 21.3V80H0Z" fill="white"/>
+    </svg>
+  </div>
+</section>
+
+<!-- ===== BENEFITS ===== -->
+<section id="benefits" class="py-24 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <span class="text-brand-600 font-semibold text-sm uppercase tracking-widest">למה כפות מוגנות?</span>
+      <h2 class="mt-2 text-4xl font-extrabold text-slate-900">היתרונות שלנו</h2>
+      <p class="mt-4 text-lg text-slate-500 max-w-xl mx-auto">אנחנו לא רק ביטוח — אנחנו שותפים לבריאות של חיית המחמד שלך</p>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div class="benefit-card bg-white rounded-2xl p-8 border border-slate-100 shadow-sm">
+        <div class="text-4xl mb-4">🏥</div>
+        <h3 class="text-lg font-bold text-slate-900 mb-2">רשת בתי חולים</h3>
+        <p class="text-slate-500 text-sm leading-relaxed">גישה לרשת של מעל 500 בתי חולים ווטרינריים ברחבי הארץ</p>
+      </div>
+      <div class="benefit-card bg-white rounded-2xl p-8 border border-slate-100 shadow-sm">
+        <div class="text-4xl mb-4">⚡</div>
+        <h3 class="text-lg font-bold text-slate-900 mb-2">תגובה מהירה</h3>
+        <p class="text-slate-500 text-sm leading-relaxed">אישור תביעה ממוצע תוך 5 ימי עסקים, חירום — תוך 24 שעות</p>
+      </div>
+      <div class="benefit-card bg-white rounded-2xl p-8 border border-slate-100 shadow-sm">
+        <div class="text-4xl mb-4">📱</div>
+        <h3 class="text-lg font-bold text-slate-900 mb-2">אפליקציה נוחה</h3>
+        <p class="text-slate-500 text-sm leading-relaxed">גישה לכרטיס הביטוח, הגשת תביעות ומעקב — הכל מהנייד</p>
+      </div>
+      <div class="benefit-card bg-white rounded-2xl p-8 border border-slate-100 shadow-sm">
+        <div class="text-4xl mb-4">💰</div>
+        <h3 class="text-lg font-bold text-slate-900 mb-2">ללא תשלום מראש</h3>
+        <p class="text-slate-500 text-sm leading-relaxed">בבתי חולים שותפים — הביטוח משלם ישירות, ללא הוצאה מכיסך</p>
+      </div>
+      <div class="benefit-card bg-white rounded-2xl p-8 border border-slate-100 shadow-sm">
+        <div class="text-4xl mb-4">🔄</div>
+        <h3 class="text-lg font-bold text-slate-900 mb-2">ביטול בכל עת</h3>
+        <p class="text-slate-500 text-sm leading-relaxed">אין עונש ביטול. ביטול קל ופשוט עם הודעה של 30 יום</p>
+      </div>
+      <div class="benefit-card bg-white rounded-2xl p-8 border border-slate-100 shadow-sm">
+        <div class="text-4xl mb-4">👨‍⚕️</div>
+        <h3 class="text-lg font-bold text-slate-900 mb-2">ייעוץ וטרינרי 24/7</h3>
+        <p class="text-slate-500 text-sm leading-relaxed">בתוכנית פרימיום — וטרינר זמין בטלפון או בווידאו בכל שעה</p>
+      </div>
+    </div>
+    <div class="mt-16 bg-gradient-to-br from-brand-600 to-brand-800 rounded-3xl p-10 grid grid-cols-2 md:grid-cols-4 gap-8 text-center text-white">
+      <div><p class="text-4xl font-extrabold mb-1">50,000+</p><p class="text-brand-200 text-sm">חיות מבוטחות</p></div>
+      <div><p class="text-4xl font-extrabold mb-1">98%</p><p class="text-brand-200 text-sm">שביעות רצון</p></div>
+      <div><p class="text-4xl font-extrabold mb-1">₪45M+</p><p class="text-brand-200 text-sm">תביעות שולמו</p></div>
+      <div><p class="text-4xl font-extrabold mb-1">500+</p><p class="text-brand-200 text-sm">בתי חולים שותפים</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PLANS ===== -->
+<section id="plans" class="py-24 bg-slate-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-12">
+      <span class="text-brand-600 font-semibold text-sm uppercase tracking-widest">תוכניות ביטוח</span>
+      <h2 class="mt-2 text-4xl font-extrabold text-slate-900">בחרו את התוכנית המתאימה</h2>
+      <p class="mt-4 text-lg text-slate-500 max-w-xl mx-auto">שלוש תוכניות גמישות המותאמות לצרכי חיית המחמד שלך</p>
+      <div class="mt-8 inline-flex items-center gap-1 bg-slate-200 rounded-full p-1">
+        <button id="btn-monthly" onclick="setBilling('monthly')" class="px-5 py-2 rounded-full text-sm font-semibold bg-white text-brand-700 shadow transition-all">חיוב חודשי</button>
+        <button id="btn-yearly"  onclick="setBilling('yearly')"  class="px-5 py-2 rounded-full text-sm font-semibold text-slate-500 transition-all">
+          חיוב שנתי <span class="bg-brand-100 text-brand-700 text-xs px-2 py-0.5 rounded-full mr-1">חסכון 17%</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8 items-start">
+
+      <!-- Basic -->
+      <div class="plan-card bg-white rounded-3xl border-2 border-slate-200 shadow-lg overflow-hidden flex flex-col">
+        <div class="p-8 bg-gradient-to-br from-slate-50 to-slate-100">
+          <div class="text-4xl mb-3">🌱</div>
+          <h3 class="text-xl font-bold text-slate-800 mb-1">בסיסי</h3>
+          <p class="text-sm text-slate-500 mb-6">מושלם להתחלה</p>
+          <div class="flex items-end gap-1">
+            <span class="text-5xl font-extrabold text-slate-900" data-monthly="59" data-yearly="49">₪59</span>
+            <span class="text-sm text-slate-500 pb-2">/חודש</span>
+          </div>
+          <p class="text-xs text-slate-400 mt-1 h-4" data-yearly-label="חיוב שנתי של ₪588"></p>
+        </div>
+        <div class="p-8 flex-1 flex flex-col">
+          <ul class="space-y-3 flex-1">
+            <li class="flex items-center gap-3"><span class="w-5 h-5 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center text-xs flex-shrink-0">✓</span><span class="text-sm text-slate-700">כיסוי לתאונות וחירום</span></li>
+            <li class="flex items-center gap-3"><span class="w-5 h-5 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center text-xs flex-shrink-0">✓</span><span class="text-sm text-slate-700">עד ₪15,000 לשנה</span></li>
+            <li class="flex items-center gap-3"><span class="w-5 h-5 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center text-xs flex-shrink-0">✓</span><span class="text-sm text-slate-700">ביקורי וטרינר רגילים</span></li>
+            <li class="flex items-center gap-3"><span class="w-5 h-5 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center text-xs flex-shrink-0">✗</span><span class="text-sm text-slate-400">תרופות מרשם</span></li>
+            <li class="flex items-center gap-3"><span class="w-5 h-5 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center text-xs flex-shrink-0">✗</span><span class="text-sm text-slate-400">ניתוחים מתוכננים</span></li>
+            <li class="flex items-center gap-3"><span class="w-5 h-5 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center text-xs flex-shrink-0">✗</span><span class="text-sm text-slate-400">כיסוי מחלות כרוניות</span></li>
+            <li class="flex items-center gap-3"><span class="w-5 h-5 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center text-xs flex-shrink-0">✗</span><span class="text-sm text-slate-400">שירות 24/7</span></li>
+          </ul>
+          <a href="#contact" class="mt-8 block text-center py-3 px-6 rounded-full font-bold text-sm border-2 border-brand-600 text-brand-700 hover:bg-brand-50 transition-colors">בחר תוכנית זו</a>
+        </div>
+      </div>
+
+      <!-- Advanced (popular) -->
+      <div class="plan-card relative rounded-3xl border-2 border-brand-500 shadow-2xl shadow-brand-200 overflow-hidden flex flex-col -translate-y-4">
+        <div class="absolute top-4 left-4 bg-yellow-400 text-yellow-900 text-xs font-bold px-3 py-1 rounded-full">הכי פופולרי</div>
+        <div class="p-8 bg-gradient-to-br from-brand-600 to-brand-700 text-white">
+          <div class="text-4xl mb-3">⭐</div>
+          <h3 class="text-xl font-bold mb-1">מתקדם</h3>
+          <p class="text-sm text-brand-100 mb-6">הפופולרי ביותר</p>
+          <div class="flex items-end gap-1">
+            <span class="text-5xl font-extrabold" data-monthly="99" data-yearly="82">₪99</span>
+            <span class="text-sm text-brand-100 pb-2">/חודש</span>
+          </div>
+          <p class="text-xs text-brand-200 mt-1 h-4" data-yearly-label="חיוב שנתי של ₪984"></p>
+        </div>
+        <div class="p-8 bg-white flex-1 flex flex-col">
+          <ul class="space-y-3 flex-1">
+            <li class="flex items-center gap-3"><span class="w-5 h-5 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center text-xs flex-shrink-0">✓</span><span class="text-sm text-slate-700">כיסוי לתאונות וחירום</span></li>
+            <li class="flex items-center gap-3"><span class="w-5 h-5 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center text-xs flex-shrink-0">✓</span><span class="text-sm text-slate-700">עד ₪40,000 לשנה</span></li>
+            <li class="flex items-center gap-3"><span class="w-5 h-5 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center text-xs flex-shrink-0">✓</span><span class="text-sm text-slate-700">ביקורי וטרינר רגילים</span></li>
+            <li class="flex items-center gap-3"><span class="w-5 h-5 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center text-xs flex-shrink-0">✓</span><span class="text-sm text-slate-700">תרופות מרשם</span></li>
+            <li class="flex items-center gap-3"><span class="w-5 h-5 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center text-xs flex-shrink-0">✓</span><span class="text-sm text-slate-700">ניתוחים מתוכננים</span></li>
+            <li class="flex items-center gap-3"><span class="w-5 h-5 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center text-xs flex-shrink-0">✗</span><span class="text-sm text-slate-400">כיסוי מחלות כרוניות</span></li>
+            <li class="flex items-center gap-3"><span class="w-5 h-5 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center text-xs flex-shrink-0">✗</span><span class="text-sm text-slate-400">שירות 24/7</span></li>
+          </ul>
+          <a href="#contact" class="mt-8 block text-center py-3 px-6 rounded-full font-bold text-sm bg-brand-600 hover:bg-brand-700 text-white shadow-lg shadow-brand-200 transition-colors">בחר תוכנית זו</a>
+        </div>
+      </div>
+
+      <!-- Premium -->
+      <div class="plan-card bg-white rounded-3xl border-2 border-slate-200 shadow-lg overflow-hidden flex flex-col">
+        <div class="p-8 bg-gradient-to-br from-slate-50 to-slate-100">
+          <div class="text-4xl mb-3">👑</div>
+          <h3 class="text-xl font-bold text-slate-800 mb-1">פרימיום</h3>
+          <p class="text-sm text-slate-500 mb-6">כיסוי מלא ומקיף</p>
+          <div class="flex items-end gap-1">
+            <span class="text-5xl font-extrabold text-slate-900" data-monthly="149" data-yearly="124">₪149</span>
+            <span class="text-sm text-slate-500 pb-2">/חודש</span>
+          </div>
+          <p class="text-xs text-slate-400 mt-1 h-4" data-yearly-label="חיוב שנתי של ₪1,488"></p>
+        </div>
+        <div class="p-8 flex-1 flex flex-col">
+          <ul class="space-y-3 flex-1">
+            <li class="flex items-center gap-3"><span class="w-5 h-5 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center text-xs flex-shrink-0">✓</span><span class="text-sm text-slate-700">כיסוי לתאונות וחירום</span></li>
+            <li class="flex items-center gap-3"><span class="w-5 h-5 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center text-xs flex-shrink-0">✓</span><span class="text-sm text-slate-700">ללא הגבלת סכום</span></li>
+            <li class="flex items-center gap-3"><span class="w-5 h-5 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center text-xs flex-shrink-0">✓</span><span class="text-sm text-slate-700">ביקורי וטרינר רגילים</span></li>
+            <li class="flex items-center gap-3"><span class="w-5 h-5 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center text-xs flex-shrink-0">✓</span><span class="text-sm text-slate-700">תרופות מרשם</span></li>
+            <li class="flex items-center gap-3"><span class="w-5 h-5 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center text-xs flex-shrink-0">✓</span><span class="text-sm text-slate-700">ניתוחים מתוכננים</span></li>
+            <li class="flex items-center gap-3"><span class="w-5 h-5 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center text-xs flex-shrink-0">✓</span><span class="text-sm text-slate-700">כיסוי מחלות כרוניות</span></li>
+            <li class="flex items-center gap-3"><span class="w-5 h-5 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center text-xs flex-shrink-0">✓</span><span class="text-sm text-slate-700">שירות 24/7</span></li>
+          </ul>
+          <a href="#contact" class="mt-8 block text-center py-3 px-6 rounded-full font-bold text-sm border-2 border-brand-600 text-brand-700 hover:bg-brand-50 transition-colors">בחר תוכנית זו</a>
+        </div>
+      </div>
+
+    </div>
+    <p class="text-center text-sm text-slate-400 mt-10">* כל התוכניות כוללות תקופת המתנה של 14 יום. לא כולל מצבים רפואיים קיימים מלפני תחילת הביטוח.</p>
+  </div>
+</section>
+
+<!-- ===== LEAD FORM ===== -->
+<section id="contact" class="py-24 bg-gradient-to-br from-brand-600 to-brand-800 relative overflow-hidden">
+  <div class="absolute inset-0 pointer-events-none">
+    <div class="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-0 left-0 w-72 h-72 bg-white/5 rounded-full blur-3xl"></div>
+  </div>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div class="grid lg:grid-cols-2 gap-12 items-center">
+      <div class="text-white">
+        <span class="text-brand-200 font-semibold text-sm uppercase tracking-widest">קבל הצעת מחיר</span>
+        <h2 class="mt-2 text-4xl font-extrabold leading-tight mb-6">
+          מלאו פרטים<br/>ונחזור אליכם<br/><span class="text-brand-200">תוך 24 שעות</span>
+        </h2>
+        <p class="text-brand-100 text-lg mb-8 leading-relaxed">השאירו פרטים ונציג מקצועי שלנו יכין עבורכם הצעת מחיר אישית, ללא עלות וללא התחייבות.</p>
+        <div class="space-y-4">
+          <div class="flex items-center gap-3"><span class="text-2xl">🔒</span><span class="text-brand-100">המידע שלך מאובטח ומוצפן</span></div>
+          <div class="flex items-center gap-3"><span class="text-2xl">📞</span><span class="text-brand-100">ייעוץ חינמי ללא התחייבות</span></div>
+          <div class="flex items-center gap-3"><span class="text-2xl">⚡</span><span class="text-brand-100">הפוליסה מופעלת תוך 24 שעות</span></div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-3xl shadow-2xl p-8">
+        <div id="form-wrap">
+          <h3 class="text-xl font-bold text-slate-900 mb-6">פרטי יצירת קשר</h3>
+          <form id="lead-form" onsubmit="submitForm(event)" class="space-y-4">
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">שם מלא *</label>
+                <input type="text" name="name" required placeholder="ישראל ישראלי"
+                  class="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent transition" />
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">טלפון *</label>
+                <input type="tel" name="phone" required placeholder="050-000-0000"
+                  class="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent transition" />
+              </div>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-1">כתובת אימייל</label>
+              <input type="email" name="email" placeholder="israel@example.com"
+                class="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent transition" />
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">שם חיית המחמד</label>
+                <input type="text" name="petName" placeholder="מקס"
+                  class="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent transition" />
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">סוג חיית מחמד *</label>
+                <select name="petType" required class="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent transition bg-white">
+                  <option value="">בחר...</option>
+                  <option>כלב</option><option>חתול</option><option>ארנב</option><option>אחר</option>
+                </select>
+              </div>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">גיל חיית המחמד *</label>
+                <select name="petAge" required class="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent transition bg-white">
+                  <option value="">בחר...</option>
+                  <option>פחות משנה</option><option>1–3 שנים</option><option>3–7 שנים</option><option>7–10 שנים</option><option>מעל 10 שנים</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-slate-700 mb-1">תוכנית מועדפת</label>
+                <select name="plan" class="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-brand-400 focus:border-transparent transition bg-white">
+                  <option value="">לא בטוח</option>
+                  <option value="basic">בסיסי</option><option value="advanced">מתקדם</option><option value="premium">פרימיום</option>
+                </select>
+              </div>
+            </div>
+            <button type="submit" id="submit-btn"
+              class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-4 rounded-xl text-base transition-colors shadow-lg mt-2">
+              שלח פנייה ➜
+            </button>
+            <p class="text-xs text-slate-400 text-center">בלחיצה על שלח, אתה מאשר שקראת את <a href="#" class="text-brand-600 hover:underline">מדיניות הפרטיות</a></p>
+          </form>
+        </div>
+        <div id="form-success" class="hidden text-center py-8">
+          <div class="text-6xl mb-4">🎉</div>
+          <h3 class="text-2xl font-extrabold text-slate-900 mb-3">תודה! פנייתך התקבלה</h3>
+          <p class="text-slate-500 mb-6">נציג שלנו יצור איתך קשר תוך 24 שעות עם הצעת מחיר מותאמת אישית.</p>
+          <div class="bg-brand-50 rounded-2xl p-4 text-brand-700 font-semibold text-sm">
+            בינתיים ניתן להגיע אלינו: 03-123-4567
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section id="faq" class="py-24 bg-slate-50">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <span class="text-brand-600 font-semibold text-sm uppercase tracking-widest">שאלות ותשובות</span>
+      <h2 class="mt-2 text-4xl font-extrabold text-slate-900">כל מה שרציתם לדעת</h2>
+      <p class="mt-4 text-lg text-slate-500">לא מצאתם תשובה? צרו קשר ונשמח לעזור</p>
+    </div>
+    <div class="space-y-3" id="faq-list">
+
+      <div class="faq-item bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+        <button class="w-full flex items-center justify-between px-6 py-5 text-right hover:bg-slate-50 transition-colors" onclick="toggleFAQ(this)">
+          <span class="font-semibold text-slate-800">מהו ביטוח וטרינרי ואיך הוא עובד?</span>
+          <span class="faq-icon flex-shrink-0 mr-4 w-6 h-6 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center text-lg font-light leading-none">+</span>
+        </button>
+        <div class="faq-answer px-6 text-slate-600 text-sm leading-relaxed border-t border-slate-100">
+          ביטוח וטרינרי הוא פוליסת ביטוח המכסה את עלויות הטיפול הרפואי בחיית המחמד שלך. אתה משלם פרמיה חודשית קבועה, ובתמורה אנו מכסים את עלויות הטיפול הרפואי בהתאם לתוכנית שבחרת. כאשר חיית המחמד שלך זקוקה לטיפול, תגיע לוטרינר, תשלם ותגיש לנו בקשת החזר.
+        </div>
+      </div>
+
+      <div class="faq-item bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+        <button class="w-full flex items-center justify-between px-6 py-5 text-right hover:bg-slate-50 transition-colors" onclick="toggleFAQ(this)">
+          <span class="font-semibold text-slate-800">אילו חיות מחמד ניתן לבטח?</span>
+          <span class="faq-icon flex-shrink-0 mr-4 w-6 h-6 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center text-lg font-light leading-none">+</span>
+        </button>
+        <div class="faq-answer px-6 text-slate-600 text-sm leading-relaxed border-t border-slate-100">
+          אנו מבטחים כלבים וחתולים בגילאי 8 שבועות עד 10 שנים. גזעים מיוחדים עשויים להיות כפופים לתנאים שונים. ניתן לרכוש ביטוח גם לארנבים ומכרסמים ביתיים בתוכנית מיוחדת — צרו קשר לפרטים.
+        </div>
+      </div>
+
+      <div class="faq-item bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+        <button class="w-full flex items-center justify-between px-6 py-5 text-right hover:bg-slate-50 transition-colors" onclick="toggleFAQ(this)">
+          <span class="font-semibold text-slate-800">האם יש תקופת המתנה?</span>
+          <span class="faq-icon flex-shrink-0 mr-4 w-6 h-6 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center text-lg font-light leading-none">+</span>
+        </button>
+        <div class="faq-answer px-6 text-slate-600 text-sm leading-relaxed border-t border-slate-100">
+          כן, קיימת תקופת המתנה של 14 יום מיום ההצטרפות עד לכניסת הכיסוי לתוקף. חריג: במקרה תאונה, הכיסוי תקף מיד.
+        </div>
+      </div>
+
+      <div class="faq-item bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+        <button class="w-full flex items-center justify-between px-6 py-5 text-right hover:bg-slate-50 transition-colors" onclick="toggleFAQ(this)">
+          <span class="font-semibold text-slate-800">האם הביטוח מכסה מצבים רפואיים קיימים?</span>
+          <span class="faq-icon flex-shrink-0 mr-4 w-6 h-6 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center text-lg font-light leading-none">+</span>
+        </button>
+        <div class="faq-answer px-6 text-slate-600 text-sm leading-relaxed border-t border-slate-100">
+          מצבים רפואיים שהתקיימו לפני תחילת הביטוח אינם מכוסים. לכן מומלץ לבטח את חיית המחמד שלך בגיל צעיר ככל האפשר.
+        </div>
+      </div>
+
+      <div class="faq-item bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+        <button class="w-full flex items-center justify-between px-6 py-5 text-right hover:bg-slate-50 transition-colors" onclick="toggleFAQ(this)">
+          <span class="font-semibold text-slate-800">כיצד מגישים תביעה?</span>
+          <span class="faq-icon flex-shrink-0 mr-4 w-6 h-6 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center text-lg font-light leading-none">+</span>
+        </button>
+        <div class="faq-answer px-6 text-slate-600 text-sm leading-relaxed border-t border-slate-100">
+          לאחר הטיפול, שמרו את כל הקבלות ותיעוד רפואי. היכנסו לאפליקציה או לאתר, מלאו טופס תביעה מקוון ועלו את המסמכים. אנו מטפלים בתביעות תוך 5 ימי עסקים בממוצע.
+        </div>
+      </div>
+
+      <div class="faq-item bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+        <button class="w-full flex items-center justify-between px-6 py-5 text-right hover:bg-slate-50 transition-colors" onclick="toggleFAQ(this)">
+          <span class="font-semibold text-slate-800">האם ניתן לבטל את הביטוח?</span>
+          <span class="faq-icon flex-shrink-0 mr-4 w-6 h-6 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center text-lg font-light leading-none">+</span>
+        </button>
+        <div class="faq-answer px-6 text-slate-600 text-sm leading-relaxed border-t border-slate-100">
+          כן, ניתן לבטל בכל עת עם הודעה של 30 יום מראש. ביטול בתוך 14 יום מיום ההצטרפות מקנה החזר כספי מלא. לא קיים עונש ביטול.
+        </div>
+      </div>
+
+    </div>
+
+    <div class="mt-12 text-center bg-white rounded-3xl p-8 border border-brand-100">
+      <p class="text-slate-700 font-semibold mb-2">עדיין יש לכם שאלות?</p>
+      <p class="text-slate-500 text-sm mb-4">צוות שירות הלקוחות שלנו זמין ימים א'–ה' 9:00–20:00</p>
+      <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <a href="tel:031234567" class="inline-flex items-center justify-center gap-2 bg-brand-600 hover:bg-brand-700 text-white font-semibold px-6 py-3 rounded-full text-sm transition-colors">📞 03-123-4567</a>
+        <a href="#contact"    class="inline-flex items-center justify-center gap-2 border-2 border-brand-600 text-brand-700 hover:bg-brand-50 font-semibold px-6 py-3 rounded-full text-sm transition-colors">✉️ השאר הודעה</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="bg-slate-900 text-slate-400">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="py-16 grid grid-cols-2 md:grid-cols-4 gap-10">
+      <div class="col-span-2 md:col-span-1">
+        <a href="#" class="flex items-center gap-2 text-white font-bold text-xl mb-4">
+          <span class="text-2xl">🐾</span><span>כפות מוגנות</span>
+        </a>
+        <p class="text-sm leading-relaxed mb-6">ביטוח וטרינרי מקיף לחיות המחמד שלך. אנחנו כאן כדי לדאוג לבריאות הפרוותי שלך.</p>
+      </div>
+      <div>
+        <h4 class="text-white font-semibold mb-4">תוכניות</h4>
+        <ul class="space-y-2 text-sm">
+          <li><a href="#plans" class="hover:text-white transition-colors">תוכנית בסיסית</a></li>
+          <li><a href="#plans" class="hover:text-white transition-colors">תוכנית מתקדמת</a></li>
+          <li><a href="#plans" class="hover:text-white transition-colors">תוכנית פרימיום</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-white font-semibold mb-4">מידע</h4>
+        <ul class="space-y-2 text-sm">
+          <li><a href="#" class="hover:text-white transition-colors">אודות</a></li>
+          <li><a href="#faq" class="hover:text-white transition-colors">שאלות ותשובות</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">מדיניות פרטיות</a></li>
+          <li><a href="#" class="hover:text-white transition-colors">תנאי שימוש</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-white font-semibold mb-4">צור קשר</h4>
+        <ul class="space-y-3 text-sm">
+          <li class="flex items-start gap-2"><span>📞</span><span>03-123-4567</span></li>
+          <li class="flex items-start gap-2"><span>✉️</span><span>info@kapotmeuganos.co.il</span></li>
+          <li class="flex items-start gap-2"><span>🕐</span><span>א'–ה' 9:00–20:00<br/>ו' 9:00–13:00</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-slate-800 py-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+      <p>© 2026 כפות מוגנות בע"מ. כל הזכויות שמורות.</p>
+      <p>רישיון ביטוח מס' 12345 | מפוקח על ידי המפקח על הביטוח</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Mobile menu
+  const menuBtn = document.getElementById('menu-btn')
+  const mobileMenu = document.getElementById('mobile-menu')
+  const iconOpen  = document.getElementById('icon-open')
+  const iconClose = document.getElementById('icon-close')
+
+  menuBtn.addEventListener('click', () => {
+    const open = mobileMenu.classList.toggle('hidden')
+    iconOpen.classList.toggle('hidden', !open)
+    iconClose.classList.toggle('hidden', open)
+  })
+
+  mobileMenu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      mobileMenu.classList.add('hidden')
+      iconOpen.classList.remove('hidden')
+      iconClose.classList.add('hidden')
+    })
+  })
+
+  // Plans billing toggle
+  let billing = 'monthly'
+
+  function setBilling(mode) {
+    billing = mode
+    const btnM = document.getElementById('btn-monthly')
+    const btnY = document.getElementById('btn-yearly')
+
+    if (mode === 'monthly') {
+      btnM.classList.add('bg-white', 'text-brand-700', 'shadow')
+      btnM.classList.remove('text-slate-500')
+      btnY.classList.remove('bg-white', 'text-brand-700', 'shadow')
+      btnY.classList.add('text-slate-500')
+    } else {
+      btnY.classList.add('bg-white', 'text-brand-700', 'shadow')
+      btnY.classList.remove('text-slate-500')
+      btnM.classList.remove('bg-white', 'text-brand-700', 'shadow')
+      btnM.classList.add('text-slate-500')
+    }
+
+    document.querySelectorAll('[data-monthly]').forEach(el => {
+      const val = mode === 'monthly' ? el.dataset.monthly : el.dataset.yearly
+      el.textContent = '₪' + val
+    })
+
+    document.querySelectorAll('[data-yearly-label]').forEach(el => {
+      el.textContent = mode === 'yearly' ? el.dataset.yearlyLabel : ''
+    })
+  }
+
+  // FAQ accordion
+  function toggleFAQ(btn) {
+    const item   = btn.closest('.faq-item')
+    const answer = item.querySelector('.faq-answer')
+    const icon   = item.querySelector('.faq-icon')
+    const isOpen = item.classList.contains('open')
+
+    // Close all
+    document.querySelectorAll('.faq-item').forEach(i => {
+      i.classList.remove('open')
+      i.querySelector('.faq-answer').classList.remove('open')
+      i.querySelector('.faq-icon').classList.remove('bg-brand-600', 'text-white')
+      i.querySelector('.faq-icon').classList.add('bg-brand-100', 'text-brand-600')
+    })
+
+    if (!isOpen) {
+      item.classList.add('open')
+      answer.classList.add('open')
+      icon.classList.add('bg-brand-600', 'text-white')
+      icon.classList.remove('bg-brand-100', 'text-brand-600')
+    }
+  }
+
+  // Lead form
+  function submitForm(e) {
+    e.preventDefault()
+    const btn = document.getElementById('submit-btn')
+    btn.textContent = 'שולח...'
+    btn.disabled = true
+    setTimeout(() => {
+      document.getElementById('form-wrap').classList.add('hidden')
+      document.getElementById('form-success').classList.remove('hidden')
+    }, 1000)
+  }
+</script>
+</body>
+</html>
