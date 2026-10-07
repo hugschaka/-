@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>אנימציית כפות מוגנות</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-1: #f0fdf4;
+      --bg-2: #dcfce7;
+      --ink: #14532d;
+      --ink-soft: #166534;
+      --brand: #16a34a;
+      --brand-light: #4ade80;
+      --shield: #22c55e;
+      --shield-dark: #15803d;
+      --paw: #86efac;
+      --heart: #f43f5e;
+      --card: rgba(255, 255, 255, 0.7);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg-1: #052e16;
+        --bg-2: #0b3d20;
+        --ink: #dcfce7;
+        --ink-soft: #bbf7d0;
+        --brand: #4ade80;
+        --brand-light: #86efac;
+        --shield: #22c55e;
+        --shield-dark: #16a34a;
+        --paw: #166534;
+        --heart: #fb7185;
+        --card: rgba(255, 255, 255, 0.06);
+      }
+    }
+    :root[data-theme="dark"] {
+      --bg-1: #052e16;
+      --bg-2: #0b3d20;
+      --ink: #dcfce7;
+      --ink-soft: #bbf7d0;
+      --brand: #4ade80;
+      --brand-light: #86efac;
+      --shield: #22c55e;
+      --shield-dark: #16a34a;
+      --paw: #166534;
+      --heart: #fb7185;
+      --card: rgba(255, 255, 255, 0.06);
+    }
+
+    * { box-sizing: border-box; margin: 0; }
+    html, body { height: 100%; }
+    body {
+      font-family: 'Rubik', Arial, sans-serif;
+      background: radial-gradient(circle at 50% 35%, var(--bg-2), var(--bg-1) 70%);
+      color: var(--ink);
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      padding: 16px;
+    }
+
+    .stage {
+      position: relative;
+      width: min(560px, 100%);
+      aspect-ratio: 1 / 1;
+      max-height: calc(100vh - 32px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    /* ---------- loop: every animation runs on a shared 8s cycle ---------- */
+    .stage * { animation-duration: 8s; animation-iteration-count: infinite; animation-fill-mode: both; }
+    .stage.restart * { animation: none !important; }
+
+    /* ---------- paw prints walking across ---------- */
+    .trail {
+      position: absolute;
+      inset: auto 0 6% 0;
+      height: 70px;
+      pointer-events: none;
+    }
+    .trail svg {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      fill: var(--paw);
+      opacity: 0;
+      animation-name: paw;
+      transform: rotate(-90deg);
+    }
+    @keyframes paw {
+      0%   { opacity: 0; transform: rotate(-90deg) scale(0.4); }
+      4%   { opacity: 1; transform: rotate(-90deg) scale(1); }
+      40%  { opacity: 1; }
+      55%  { opacity: 0; }
+      100% { opacity: 0; }
+    }
+
+    /* ---------- shield ---------- */
+    .emblem { width: 62%; overflow: visible; }
+
+    .halo {
+      fill: var(--brand-light);
+      opacity: 0;
+      transform-origin: 100px 105px;
+      animation-name: halo;
+    }
+    @keyframes halo {
+      0%, 30% { opacity: 0; transform: scale(0.6); }
+      38%     { opacity: 0.35; transform: scale(1); }
+      55%     { opacity: 0; transform: scale(1.35); }
+      100%    { opacity: 0; }
+    }
+
+    .shield-outline {
+      fill: none;
+      stroke: var(--shield-dark);
+      stroke-width: 6;
+      stroke-linejoin: round;
+      stroke-dasharray: 560;
+      animation-name: draw-shield;
+    }
+    @keyframes draw-shield {
+      0%, 8% { stroke-dashoffset: 560; }
+      28%    { stroke-dashoffset: 0; }
+      100%   { stroke-dashoffset: 0; }
+    }
+
+    .shield-fill {
+      fill: var(--shield);
+      transform-origin: 100px 110px;
+      animation-name: fill-shield;
+    }
+    @keyframes fill-shield {
+      0%, 26% { opacity: 0; transform: scale(0.85); }
+      34%     { opacity: 1; transform: scale(1.04); }
+      38%     { transform: scale(1); }
+      92%     { opacity: 1; transform: scale(1); }
+      100%    { opacity: 0; transform: scale(0.95); }
+    }
+
+    .big-paw {
+      fill: #ffffff;
+      transform-origin: 100px 100px;
+      animation-name: pop-paw;
+    }
+    @keyframes pop-paw {
+      0%, 34% { opacity: 0; transform: scale(0) rotate(-20deg); }
+      40%     { opacity: 1; transform: scale(1.15) rotate(6deg); }
+      44%     { transform: scale(1) rotate(0); }
+      92%     { opacity: 1; transform: scale(1); }
+      100%    { opacity: 0; transform: scale(0.9); }
+    }
+
+    /* heartbeat line across the shield */
+    .pulse {
+      fill: none;
+      stroke: var(--heart);
+      stroke-width: 4;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 260;
+      animation-name: pulse-line;
+    }
+    @keyframes pulse-line {
+      0%, 46%  { stroke-dashoffset: 260; opacity: 1; }
+      58%      { stroke-dashoffset: 0; opacity: 1; }
+      66%      { stroke-dashoffset: -260; opacity: 1; }
+      67%, 100%{ opacity: 0; }
+    }
+
+    .check {
+      fill: none;
+      stroke: #ffffff;
+      stroke-width: 7;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 70;
+      animation-name: draw-check;
+    }
+    @keyframes draw-check {
+      0%, 62% { stroke-dashoffset: 70; opacity: 1; }
+      70%     { stroke-dashoffset: 0; }
+      92%     { stroke-dashoffset: 0; opacity: 1; }
+      100%    { opacity: 0; }
+    }
+    .check-badge {
+      fill: var(--brand);
+      stroke: var(--bg-1);
+      stroke-width: 4;
+      transform-origin: 150px 160px;
+      animation-name: badge;
+    }
+    @keyframes badge {
+      0%, 60% { transform: scale(0); }
+      65%     { transform: scale(1.2); }
+      68%     { transform: scale(1); }
+      92%     { transform: scale(1); }
+      100%    { transform: scale(0); }
+    }
+
+    /* ---------- floating hearts ---------- */
+    .heart {
+      position: absolute;
+      bottom: 30%;
+      font-size: 22px;
+      color: var(--heart);
+      opacity: 0;
+      animation-name: float;
+    }
+    @keyframes float {
+      0%, 66% { opacity: 0; transform: translateY(0) scale(0.5); }
+      70%     { opacity: 1; transform: translateY(-20px) scale(1); }
+      90%     { opacity: 0; transform: translateY(-160px) scale(1.1); }
+      100%    { opacity: 0; }
+    }
+
+    /* ---------- text ---------- */
+    .title, .tagline { text-align: center; opacity: 0; }
+    .title {
+      font-size: clamp(28px, 7vw, 46px);
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      animation-name: rise;
+    }
+    .tagline {
+      font-size: clamp(14px, 3.4vw, 18px);
+      color: var(--ink-soft);
+      animation-name: rise-late;
+    }
+    @keyframes rise {
+      0%, 68% { opacity: 0; transform: translateY(14px); }
+      74%     { opacity: 1; transform: translateY(0); }
+      92%     { opacity: 1; }
+      100%    { opacity: 0; }
+    }
+    @keyframes rise-late {
+      0%, 73% { opacity: 0; transform: translateY(14px); }
+      79%     { opacity: 1; transform: translateY(0); }
+      92%     { opacity: 1; }
+      100%    { opacity: 0; }
+    }
+
+    .replay {
+      position: fixed;
+      bottom: 16px;
+      left: 16px;
+      font: 600 14px 'Rubik', Arial, sans-serif;
+      color: var(--ink);
+      background: var(--card);
+      border: 1px solid color-mix(in srgb, var(--brand) 35%, transparent);
+      border-radius: 999px;
+      padding: 8px 16px;
+      cursor: pointer;
+      backdrop-filter: blur(6px);
+    }
+    .replay:hover { background: color-mix(in srgb, var(--brand) 18%, var(--card)); }
+
+    /* reduced motion: show the final frame without movement */
+    @media (prefers-reduced-motion: reduce) {
+      .stage * { animation: none !important; }
+      .shield-outline, .pulse, .check { stroke-dashoffset: 0 !important; }
+      .shield-fill, .big-paw, .title, .tagline { opacity: 1 !important; }
+      .pulse, .halo, .heart, .trail svg { opacity: 0 !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="stage" id="stage" role="img" aria-label="מגן ירוק עם כף רגל, דופק לב וסימן וי – כפות מוגנות">
+    <div class="trail" id="trail"></div>
+
+    <svg class="emblem" viewBox="0 0 200 200" aria-hidden="true">
+      <circle class="halo" cx="100" cy="105" r="92" />
+      <path class="shield-fill"
+            d="M100 18 L168 44 C168 110 142 158 100 184 C58 158 32 110 32 44 Z" />
+      <path class="shield-outline"
+            d="M100 18 L168 44 C168 110 142 158 100 184 C58 158 32 110 32 44 Z" />
+      <g class="big-paw">
+        <ellipse cx="100" cy="112" rx="26" ry="22" />
+        <ellipse cx="68"  cy="84"  rx="10" ry="13" transform="rotate(-20 68 84)" />
+        <ellipse cx="88"  cy="68"  rx="10" ry="13" />
+        <ellipse cx="112" cy="68"  rx="10" ry="13" />
+        <ellipse cx="132" cy="84"  rx="10" ry="13" transform="rotate(20 132 84)" />
+      </g>
+      <polyline class="pulse"
+                points="20,140 62,140 72,140 80,122 90,160 100,108 110,148 118,140 180,140" />
+      <circle class="check-badge" cx="150" cy="160" r="24" />
+      <polyline class="check" points="139,160 147,168 162,151" />
+    </svg>
+
+    <h1 class="title">כפות מוגנות</h1>
+    <p class="tagline">דואגים להם כמו שאתם דואגים להם 💚</p>
+  </div>
+
+  <button class="replay" id="replay" type="button">↻ הפעל מחדש</button>
+
+  <script>
+    // Paw-print trail: alternating left/right prints walking right → left (RTL)
+    const PAW = '<svg viewBox="0 0 24 24"><ellipse cx="12" cy="15" rx="5" ry="4.2"/><ellipse cx="5.5" cy="9.5" rx="2" ry="2.6"/><ellipse cx="9.5" cy="6" rx="2" ry="2.6"/><ellipse cx="14.5" cy="6" rx="2" ry="2.6"/><ellipse cx="18.5" cy="9.5" rx="2" ry="2.6"/></svg>';
+    const trail = document.getElementById('trail');
+    const STEPS = 9;
+    for (let i = 0; i < STEPS; i++) {
+      const wrap = document.createElement('div');
+      wrap.innerHTML = PAW;
+      const paw = wrap.firstChild;
+      paw.style.right = (4 + i * (88 / (STEPS - 1))) + '%';
+      paw.style.top = (i % 2 ? 34 : 6) + 'px';
+      paw.style.animationDelay = (i * 0.22) + 's';
+      trail.appendChild(paw);
+    }
+
+    // Floating hearts
+    const stage = document.getElementById('stage');
+    [22, 38, 62, 78].forEach((left, i) => {
+      const h = document.createElement('span');
+      h.className = 'heart';
+      h.textContent = '♥';
+      h.style.left = left + '%';
+      h.style.animationDelay = (i * 0.15) + 's';
+      stage.appendChild(h);
+    });
+
+    // Replay: briefly strip animations, force reflow, then restore
+    document.getElementById('replay').addEventListener('click', () => {
+      stage.classList.add('restart');
+      void stage.offsetWidth;
+      stage.classList.remove('restart');
+    });
+  </script>
+</body>
+</html>
